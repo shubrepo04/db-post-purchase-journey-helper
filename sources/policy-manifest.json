@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-06",
+  "provider": "Deutsche Bahn",
+  "scope": "Prototype grounding sources for the missed-connection workflow",
+  "rules": [
+    {
+      "id": "db-train-binding-missed-connection",
+      "claim": "For a saver fare with train binding, train binding is lifted when a DB-caused connection is missed, subject to the applicable ticket and journey conditions.",
+      "sourceTitle": "In welchen Fällen ist die Zugbindung aufgehoben und was bedeutet das?",
+      "sourceUrl": "https://www.bahn.de/faq/zugbindung-aufgehoben-bedeutung",
+      "localEvidence": "/sources/db-carriage-conditions-2026-01-01.pdf",
+      "requires": ["same-ticket scope", "cause verification", "operator coverage"],
+      "reviewStatus": "product-reviewed; legal review required before production"
+    },
+    {
+      "id": "db-onward-travel-threshold",
+      "claim": "At an expected destination delay of at least 20 minutes for a national journey or 60 minutes for an international journey, qualifying passengers may continue on another eligible train.",
+      "sourceTitle": "Ihre Rechte als Fahrgast im Eisenbahnverkehr",
+      "sourceUrl": "https://www.bahn.de/service/informationen-buchung/fahrgastrechte/rechtliche-regelungen",
+      "localEvidence": "/sources/db-passenger-rights-brochure.pdf",
+      "requires": ["destination-delay forecast", "national-or-international classification", "ticket eligibility"],
+      "reviewStatus": "product-reviewed; legal review required before production"
+    },
+    {
+      "id": "db-delay-compensation",
+      "claim": "Compensation is 25% of the applicable one-way fare from 60 minutes of actual destination delay and 50% from 120 minutes, subject to DB passenger-rights conditions.",
+      "sourceTitle": "Ihre Rechte als Fahrgast im Eisenbahnverkehr",
+      "sourceUrl": "https://www.bahn.de/service/informationen-buchung/fahrgastrechte/rechtliche-regelungen",
+      "localEvidence": "/sources/db-passenger-rights-brochure.pdf",
+      "requires": ["actual destination arrival", "applicable one-way fare", "claim eligibility"],
+      "reviewStatus": "product-reviewed; legal review required before production"
+    }
+  ],
+  "groundingContract": {
+    "fact": "Must include the provider response and retrieval timestamp.",
+    "calculation": "Must expose named inputs and deterministic formula.",
+    "policyClaim": "Must reference a versioned rule ID and source.",
+    "alternative assessment": "Must state assumptions, alternatives considered, and confidence.",
+    "failure": "Missing, stale, or conflicting evidence must stop automation and trigger review."
+  }
+}

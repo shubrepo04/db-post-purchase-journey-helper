@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An independent interview concept for a post-purchase travel experience. Account access powered by Firebase Authentication.">
+<title>Welcome back · roamwell journey prototype</title>
+<style>
+:root{color-scheme:light;--navy:#121214;--coral:#C79214;--muted:#5f6168;--line:#e4e4e7;--pale:#ffffff;--tint:#f5f5f6}*{box-sizing:border-box}body{margin:0;background:var(--pale);color:var(--navy);font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5}button,input{font:inherit}button,a,input{ -webkit-tap-highlight-color:transparent}button,a{touch-action:manipulation}button{cursor:pointer}a{color:var(--navy);text-underline-offset:4px}a:hover{text-decoration-thickness:2px}:focus-visible{outline:3px solid var(--coral);outline-offset:4px}[hidden]{display:none!important}.header{height:88px;max-width:1240px;margin:auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between}.wordmark{font-size:38px;font-weight:800;letter-spacing:-2px;line-height:1}.prototype-label{font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center}.prototype-label:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--coral)}main{min-height:calc(100vh - 164px);display:grid;place-items:center;padding:26px 20px 36px;position:relative;overflow:hidden}.route{position:absolute;width:680px;height:460px;border:1px dashed var(--line);border-radius:50%;transform:rotate(-32deg);pointer-events:none;left:calc(50% - 340px);top:130px}.route:before,.route:after{content:"";position:absolute;width:13px;height:13px;border:4px solid var(--pale);border-radius:50%;background:var(--coral);top:57px;left:80px}.route:after{top:auto;left:auto;bottom:57px;right:80px;background:var(--navy)}.card{width:100%;max-width:460px;background:white;border:1px solid var(--line);border-radius:24px;padding:36px 38px;box-shadow:0 16px 50px #13296809;position:relative}.eyebrow{font-size:11px;letter-spacing:1.8px;font-weight:700;color:var(--muted);margin:0 0 12px}h1{font-size:32px;letter-spacing:-1px;line-height:1.18;margin:0 0 10px} .intro{color:var(--muted);font-size:15px;margin:0 0 26px;max-width:340px}.field{margin-bottom:18px}label{display:block;font-weight:700;margin-bottom:7px}input[type=email],input[type=password],input[type=text]{width:100%;height:50px;border:1px solid #bcc5d6;border-radius:10px;padding:0 14px;background:#fff;color:var(--navy)}input::placeholder{color:#758095}input:hover{border-color:#7e8da9}input[aria-invalid=true]{border-color:#b32b3d;background:#fffafb}.password-wrap{position:relative}.password-wrap input{padding-right:72px}.visibility{position:absolute;right:5px;top:5px;height:40px;min-width:60px;border:0;background:transparent;color:var(--navy);font-size:13px;font-weight:700;border-radius:6px}.options{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:2px 0 22px;font-size:13px}.remember{display:flex;align-items:center;gap:8px;margin:0;font-weight:400;cursor:pointer}.remember input{width:17px;height:17px;accent-color:var(--navy);margin:0}.primary,.google,.continue{width:100%;height:50px;border:0;border-radius:10px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}.primary{background:var(--coral);color:#17150e}.primary:hover{background:#a97b0c;color:#fff}.primary:disabled{cursor:wait;opacity:.75}.spinner{width:17px;height:17px;border:2px solid #13296840;border-top-color:var(--navy);border-radius:50%;animation:spin .75s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.divider{display:flex;align-items:center;gap:14px;color:#737d90;font-size:12px;margin:20px 0}.divider:before,.divider:after{content:"";height:1px;background:var(--line);flex:1}.google{border:1px solid var(--line);background:var(--tint);color:#697386;cursor:not-allowed}.google-mark{font-size:19px;font-weight:700}.signup{text-align:center;color:var(--muted);margin:22px 0;font-size:13px}.signup a{font-weight:700}.credentials{padding:16px 18px;background:var(--tint);border-radius:12px;font-size:13px}.credentials-title{font-weight:700;margin:0 0 8px}.credential-row{display:flex;gap:8px;color:var(--muted)}.credential-row span{color:var(--navy);font-family:Consolas,monospace;font-size:13px}.prototype-note{font-size:11px;color:var(--muted);margin:9px 0 0}.error{color:#a32336;font-size:12px;margin:6px 0 0}.form-error{background:#fff0f2;border-radius:8px;padding:10px 12px;margin:0 0 16px;font-size:13px}.notice{font-size:13px;color:var(--navy);background:var(--tint);border-radius:8px;padding:12px;margin:18px 0 0}.footer{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1240px;margin:auto;padding:16px 48px;font-size:11px;color:var(--muted)}.reset{border:0;background:transparent;padding:10px 0;color:var(--navy);text-decoration:underline;text-underline-offset:4px;font-size:12px;white-space:nowrap}.success-icon{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#edf4f1;color:#216647;font-size:26px;margin-bottom:24px}.success-copy{color:var(--muted);font-size:16px;margin:18px 0 28px}.continue{background:var(--tint);color:#647088;cursor:not-allowed}.step{text-align:center;color:var(--muted);font-size:12px;margin:10px 0 0}@media(max-width:520px){.header{height:74px;padding:0 24px}.wordmark{font-size:34px}main{padding:12px 16px 24px;min-height:calc(100svh - 170px)}.card{padding:28px 24px;border-radius:20px}h1{font-size:30px}.footer{padding:12px 24px 20px;align-items:flex-start}.footer p{max-width:225px;margin:7px 0}.route{display:none}.intro{font-size:14px}.options{font-size:12px}}@media(prefers-reduced-motion:reduce){.spinner{animation:none}}
+
+.google{color:var(--navy);background:white;cursor:pointer}.google:hover{background:var(--tint)}.prototype-access{width:100%;height:46px;margin-top:10px;border:1px solid #c79214;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#fffaf0;color:#17150e;font-weight:800;text-decoration:none}.prototype-access:hover{background:#f4e7bd;text-decoration:none}button:disabled{cursor:not-allowed;opacity:.65}.link-button{border:0;background:transparent;color:var(--navy);padding:0;text-decoration:underline;text-underline-offset:4px;font:inherit}.signup .link-button{font-weight:700}.auth-note{font-size:12px;color:var(--muted);margin:22px 0 0;text-align:center}.verification-actions{display:grid;gap:12px;margin-top:24px}.verification-email{font-weight:700;overflow-wrap:anywhere}.password-help{font-size:12px;color:var(--muted);margin:6px 0}.success-copy{overflow-wrap:anywhere}.secondary{border:1px solid var(--line);background:white;color:var(--navy);border-radius:10px;padding:12px;font-weight:700}.status-heading{font-size:28px}.footer .reset:disabled{opacity:.5}#boot-status{color:var(--muted);font-size:12px;text-align:center;margin:16px 0 0}.wordmark{letter-spacing:-1.8px}@media(max-width:400px){.header{padding:0 20px}.wordmark{font-size:30px}.prototype-label{font-size:11px}.options{gap:8px}}
+
+.wordmark{display:inline-flex;align-items:center;gap:10px}.brand-mark{width:34px;height:34px;border-radius:10px;background:var(--navy);display:inline-grid;place-items:center}.brand-mark svg{width:26px;height:26px;fill:none;stroke:var(--coral);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.brand-mark circle{fill:var(--coral);stroke:none}.trust-line{margin:-12px 0 24px;padding:11px 13px;border-left:3px solid var(--coral);background:#faf8f1;border-radius:0 8px 8px 0;color:#3f424a;font-size:13px;line-height:1.45}@media(max-width:400px){.brand-mark{width:30px;height:30px}}
+</style>
+<style>.wordmark{display:inline-flex;align-items:center}.logo-lockup{width:54px;display:grid;justify-items:center;line-height:1}.logo-monogram{font-size:25px;font-weight:900;letter-spacing:-2.5px;color:#17213d}.logo-name{font-size:8px;font-weight:800;letter-spacing:.8px;color:#5f6168;margin-top:4px}</style></head>
+<body>
+<header class="header"><span class="wordmark" aria-label="roamwell"><span class="logo-lockup" aria-hidden="true"><span class="logo-monogram">RW</span><span class="logo-name">roamwell</span></span></span><span class="prototype-label">Prototype environment</span></header>
+<main><div class="route" aria-hidden="true"></div><section class="card" aria-labelledby="heading">
+<div id="login-view">
+<p class="eyebrow">YOUR JOURNEY, CLEARLY EXPLAINED</p><h1 id="heading" tabindex="-1">Welcome back</h1><p class="intro" id="intro">Sign in to follow important journey updates, understand what they mean, and see the options available to you.</p><p class="trust-line" id="trust-line">If you value trust and a smoother journey from booking to arrival, roamwell is built for you.</p>
+<form id="login-form" novalidate>
+<div class="field" id="name-field" hidden><label for="name">Your name</label><input id="name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Alex Morgan" aria-describedby="name-error"><p class="error" id="name-error"></p></div>
+<div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="username" placeholder="you@example.com" required maxlength="254" aria-describedby="email-error"><p class="error" id="email-error"></p></div>
+<div id="password-fields"><div class="field"><label for="password">Password</label><div class="password-wrap"><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required aria-describedby="password-error password-help"><button class="visibility" id="toggle-password" type="button" aria-label="Show password" aria-controls="password" aria-pressed="false">Show</button></div><p class="password-help" id="password-help" hidden>Use at least 8 characters.</p><p class="error" id="password-error"></p></div>
+<div class="field" id="confirm-field" hidden><label for="confirm">Confirm password</label><input id="confirm" name="confirm-password" type="password" autocomplete="new-password" placeholder="Enter your password again" aria-describedby="confirm-error"><p class="error" id="confirm-error"></p></div></div>
+<div class="options" id="options"><label class="remember"><input id="remember" type="checkbox">Remember me</label><button class="link-button" id="forgot-password" type="button">Forgot password?</button></div>
+<p id="form-error" class="error form-error" role="alert" hidden></p>
+<button class="primary" id="sign-in" type="submit" disabled><span class="spinner" hidden aria-hidden="true"></span><span id="submit-label">Sign in</span></button>
+</form>
+<div id="social-section"><div class="divider">or</div><button class="google" id="google-sign-in" type="button" disabled><span class="google-mark" aria-hidden="true">G</span>Continue with Google</button><a class="prototype-access" href="/app?preview#intro">Continue with prototype account</a></div>
+<p class="signup"><span id="switch-copy">New to roamwell? </span><button class="link-button" id="switch-mode" type="button">Create an account</button></p>
+<p class="auth-note">Real accounts, powered by Firebase. The travel experience is an interview concept.</p>
+</div>
+<div id="verify-view" hidden><div class="success-icon" aria-hidden="true">✉</div><h1 class="status-heading" id="verify-heading" tabindex="-1">Check your email</h1><p class="success-copy">Verify your email address to finish setting up your account.</p><p class="verification-email" id="verify-email"></p><div class="verification-actions"><button class="primary" id="check-verification" type="button">I’ve verified my email</button><button class="secondary" id="resend-verification" type="button">Send verification email</button></div></div>
+<p id="boot-status" role="status">Connecting securely…</p><p id="prototype-message" class="notice" role="status" aria-live="polite" hidden></p><noscript><p class="notice">Please enable JavaScript to sign in.</p></noscript>
+</section></main>
+<footer class="footer"><p>Independent travel product interview concept.</p><button class="reset" id="reset-prototype" type="button">Reset form</button></footer>
+<script>
+'use strict';
+// Public Firebase web configuration; this is not an admin credential.
+const firebaseConfig = {
+  apiKey: 'AIzaSyC5GwHyAT0dhtUY31joj5M0BzHfRxlFvBM',
+  authDomain: 'roamwell-8972d.firebaseapp.com',
+  projectId: 'roamwell-8972d',
+  storageBucket: 'roamwell-8972d.firebasestorage.app',
+  messagingSenderId: '885191949646',
+  appId: '1:885191949646:web:8ceca67f114dbc720eb21f'
+};
+const $ = id => document.getElementById(id);
+let sdk, auth, ready = false, busy = false, mode = 'login', verificationSentAt = 0;
+function showMessage(message) { $('prototype-message').textContent = message; $('prototype-message').hidden = !message; }
+function showError(message) { $('form-error').textContent = message; $('form-error').hidden = !message; }
+function clearErrors() { for (const id of ['name','email','password','confirm']) { $(id).removeAttribute('aria-invalid'); $(id+'-error').textContent=''; } showError(''); }
+function submitText() { return mode === 'signup' ? 'Create account' : mode === 'reset' ? 'Send reset link' : 'Sign in'; }
+function setBusy(value, label = 'Please wait…') {
+  busy = value;
+  $('login-form').setAttribute('aria-busy', String(value));
+  for (const id of ['sign-in','google-sign-in','check-verification','resend-verification']) $(id).disabled = value || !ready;
+  for (const id of ['switch-mode','forgot-password','reset-prototype','remember']) $(id).disabled = value;
+  $('sign-in').querySelector('.spinner').hidden = !value;
+  $('submit-label').textContent = value ? label : submitText();
+}
+function setMode(next, focus = true) {
+  if (busy) return;
+  mode = next; clearErrors(); showMessage('');
+  const signup = next === 'signup', reset = next === 'reset';
+  $('heading').textContent = signup ? 'Create your account' : reset ? 'Forgot your password?' : 'Welcome back';
+  $('intro').textContent = signup ? 'A little less planning. A little more exploring.' : reset ? 'Enter your email and we’ll send you a reset link.' : 'Sign in to follow important journey updates, understand what they mean, and see the options available to you.';
+  $('trust-line').hidden = signup || reset;
+  $('name-field').hidden = !signup; $('name').required = signup;
+  $('confirm-field').hidden = !signup; $('confirm').required = signup;
+  $('password-fields').hidden = reset; $('password').required = !reset;
+  $('password-help').hidden = !signup; $('options').hidden = reset;
+  $('forgot-password').hidden = signup; $('social-section').hidden = reset;
+  $('password').autocomplete = signup ? 'new-password' : 'current-password';
+  $('password').value = ''; $('confirm').value = ''; $('password').type = 'password'; $('confirm').type = 'password'; updateVisibility();
+  $('switch-copy').textContent = signup ? 'Already have an account? ' : reset ? 'Remember your password? ' : 'New to roamwell? ';
+  $('switch-mode').textContent = signup || reset ? 'Sign in' : 'Create an account';
+  $('submit-label').textContent = submitText();
+  if (focus) $('heading').focus();
+}
+function validateFields() {
+  const errors = {}, email = $('email').value.trim();
+  if (mode === 'signup' && !$('name').value.trim()) errors.name = 'Enter your name.';
+  if (!email) errors.email = 'Enter your email address.';
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Enter a valid email address.';
+  if (mode !== 'reset' && !$('password').value) errors.password = 'Enter your password.';
+  else if (mode === 'signup' && $('password').value.length < 8) errors.password = 'Use at least 8 characters.';
+  if (mode === 'signup' && !$('confirm').value) errors.confirm = 'Confirm your password.';
+  else if (mode === 'signup' && $('password').value !== $('confirm').value) errors.confirm = 'Your passwords don’t match.';
+  return errors;
+}
+function renderErrors(errors) {
+  for (const [id,message] of Object.entries(errors)) { $(id).setAttribute('aria-invalid','true'); $(id+'-error').textContent = message; }
+  showError(Object.values(errors).join(' ')); $(Object.keys(errors)[0]).focus();
+}
+function authError(error) {
+  const messages = {
+    'auth/invalid-credential': 'We couldn’t sign you in. Check your email and password and try again.',
+    'auth/wrong-password': 'We couldn’t sign you in. Check your email and password and try again.',
+    'auth/user-not-found': 'We couldn’t sign you in. Check your email and password and try again.',
+    'auth/email-already-in-use': 'We couldn’t create this account. Try signing in or resetting your password.',
+    'auth/invalid-email': 'Enter a valid email address.',
+    'auth/weak-password': 'Choose a stronger password with at least 8 characters.',
+    'auth/password-does-not-meet-requirements': 'Choose a stronger password with at least 8 characters.',
+    'auth/too-many-requests': 'Too many attempts. Please wait a little before trying again.',
+    'auth/network-request-failed': 'We couldn’t connect. Check your internet connection and try again.',
+    'auth/popup-closed-by-user': 'Google sign-in was cancelled. You can try again when you’re ready.',
+    'auth/cancelled-popup-request': 'Another sign-in window is already open. Please finish there.',
+    'auth/popup-blocked': 'Your browser blocked the Google sign-in window. Allow pop-ups for this page and try again.',
+    'auth/unauthorized-domain': 'Sign-in isn’t available at this web address. Please use the roamwell localhost link.',
+    'auth/operation-not-allowed': 'This sign-in method is not available right now. Please try again later.',
+    'auth/account-exists-with-different-credential': 'Please sign in using the method you originally used for this email address.',
+    'auth/user-disabled': 'This account is unavailable. Please contact the project owner.',
+    'auth/user-token-expired': 'Your session has expired. Please sign in again.',
+    'auth/web-storage-unsupported': 'Your browser is blocking session storage. Allow site storage to sign in.'
+  };
+  return messages[error.code] || 'Something went wrong. Please try again.';
+}
+function renderSession(user, focus = false) {
+  // Firebase owns the session. A cached name/email object is never proof of login.
+  // A verified user never sees another screen here. Straight to the journey.
+  if (user && user.emailVerified) { location.replace('/app'); return; }
+  $('login-view').hidden = !!user; $('verify-view').hidden = !user;
+  const heading = !user ? 'heading' : 'verify-heading';
+  document.querySelector('.card').setAttribute('aria-labelledby', heading);
+  $('reset-prototype').textContent = user ? 'Sign out' : 'Reset form';
+  if (user) {
+    $('password').value = ''; $('confirm').value = '';
+    $('verify-email').textContent = user.email || '';
+  }
+  if (focus) $(heading).focus();
+}
+async function setPersistence() { await sdk.setPersistence(auth, $('remember').checked ? sdk.browserLocalPersistence : sdk.browserSessionPersistence); }
+async function submitLogin(event) {
+  event.preventDefault(); if (busy || !ready) return;
+  clearErrors(); showMessage(''); const errors = validateFields();
+  if (Object.keys(errors).length) { renderErrors(errors); return; }
+  const action = mode, email = $('email').value.trim(), name = $('name').value.trim();
+  setBusy(true, action === 'signup' ? 'Creating account…' : action === 'reset' ? 'Sending link…' : 'Signing in…');
+  try {
+    if (action === 'reset') {
+      await sdk.sendPasswordResetEmail(auth, email);
+      showMessage('If an account exists for this email, you’ll receive a password reset link. Check your inbox and spam folder.');
+      return;
+    }
+    await setPersistence();
+    // Credentials go directly to Firebase over HTTPS. Never save or log passwords.
+    if (action === 'signup') {
+      const result = await sdk.createUserWithEmailAndPassword(auth, email, $('password').value);
+      try { await sdk.updateProfile(result.user, {displayName:name}); }
+      catch (_) { showMessage('Your account was created, but your name couldn’t be saved.'); }
+      renderSession(result.user, true);
+      try { await sdk.sendEmailVerification(result.user); verificationSentAt = Date.now(); showMessage('Verification email sent. Open the link, then return here to continue.'); }
+      catch (error) { showMessage('Your account was created. '+authError(error)+' You can use “Send verification email” below.'); }
+    } else {
+      const result = await sdk.signInWithEmailAndPassword(auth, email, $('password').value);
+      renderSession(result.user, true);
+    }
+  } catch (error) { showError(authError(error)); }
+  finally { setBusy(false); }
+}
+async function googleSignIn() {
+  if (busy || !ready) return; clearErrors(); showMessage(''); setBusy(true, 'Opening Google…');
+  try {
+    // No Gmail, Drive, or other Google API scopes are requested.
+    const provider = new sdk.GoogleAuthProvider(); provider.setCustomParameters({prompt:'select_account'});
+    await setPersistence();
+    const result = await sdk.signInWithPopup(auth, provider); renderSession(result.user, true);
+  } catch (error) { showError(authError(error)); }
+  finally { setBusy(false); }
+}
+async function verifyEmail(resend) {
+  if (busy || !ready || !auth.currentUser) return; showMessage(''); setBusy(true);
+  try {
+    if (resend) {
+      if (Date.now()-verificationSentAt < 60000) { showMessage('Please wait a minute before requesting another verification email.'); return; }
+      await sdk.sendEmailVerification(auth.currentUser); verificationSentAt = Date.now(); showMessage('Verification email sent. Check your inbox and spam folder.');
+    } else {
+      await sdk.reload(auth.currentUser);
+      if (auth.currentUser.emailVerified) { await auth.currentUser.getIdToken(true); renderSession(auth.currentUser, true); }
+      else showMessage('Your email isn’t verified yet. Open the verification link in your inbox, then try again.');
+    }
+  } catch (error) { showMessage(authError(error)); }
+  finally { setBusy(false); }
+}
+async function resetPrototype() {
+  if (busy) return; setBusy(true);
+  try {
+    if (auth && auth.currentUser) await sdk.signOut(auth);
+    $('login-form').reset(); clearErrors(); verificationSentAt = 0;
+    setBusy(false); setMode('login', false); renderSession(null); $('email').focus(); showMessage('You can sign in or create an account.');
+  } catch (error) { showMessage(authError(error)); }
+  finally { setBusy(false); }
+}
+function updateVisibility() { const visible = $('password').type === 'text'; $('toggle-password').textContent = visible ? 'Hide' : 'Show'; $('toggle-password').setAttribute('aria-label', visible ? 'Hide password' : 'Show password'); $('toggle-password').setAttribute('aria-pressed',String(visible)); }
+async function initializeAuthentication() {
+  try { sessionStorage.removeItem('roamwellJourneyCareSession'); } catch (_) {}
+  if (location.protocol === 'file:') { $('boot-status').textContent = 'Real sign-in needs a web address. Open http://localhost:4173 while the local server is running.'; return; }
+  try {
+    const modules = await Promise.all([import('https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js'),import('https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js')]);
+    sdk = modules[1]; auth = sdk.getAuth(modules[0].initializeApp(firebaseConfig)); auth.languageCode = 'en';
+    await auth.authStateReady();
+    if (auth.currentUser) await sdk.reload(auth.currentUser);
+    ready = true; $('boot-status').hidden = true;
+    sdk.onAuthStateChanged(auth, user => { if (!busy) { showMessage(''); renderSession(user); } });
+    renderSession(auth.currentUser); setBusy(false);
+  } catch (_) { $('boot-status').textContent = 'We couldn’t connect to sign-in. Check your connection and allow site storage, then refresh to try again.'; }
+}
+$('login-form').addEventListener('submit',submitLogin);
+$('toggle-password').addEventListener('click',()=>{ $('password').type = $('password').type === 'password' ? 'text' : 'password'; $('confirm').type = $('password').type; updateVisibility(); });
+$('switch-mode').addEventListener('click',()=>setMode(mode === 'login' ? 'signup' : 'login'));
+$('forgot-password').addEventListener('click',()=>setMode('reset'));
+$('google-sign-in').addEventListener('click',googleSignIn);
+$('reset-prototype').addEventListener('click',resetPrototype);
+$('check-verification').addEventListener('click',()=>verifyEmail(false));
+$('resend-verification').addEventListener('click',()=>verifyEmail(true));
+initializeAuthentication();
+</script>
+</body>
+</html>
+

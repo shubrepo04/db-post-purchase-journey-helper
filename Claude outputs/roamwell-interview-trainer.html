@@ -1,0 +1,267 @@
+<title>Omio Showcase Trainer</title>
+<style>
+  :root{
+    --bg:#f4f4f7; --card:#ffffff; --ink:#16163a; --muted:#5b5b74;
+    --line:#e5e5ee; --accent:#ff5b5b; --navy:#1c1c4b; --navy2:#2c2c6b;
+    --chip:#ececf6; --chipink:#3a3a63; --good:#127a51; --goodbg:#e7f5ee;
+    --shadow:0 12px 40px rgba(20,20,58,.10);
+  }
+  :root:not([data-theme="light"]){}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#0e0e1c; --card:#17172c; --ink:#f0f0f7; --muted:#a3a3c0;
+      --line:#2a2a45; --accent:#ff6b6b; --navy:#e9e9f6; --navy2:#c9c9e6;
+      --chip:#22223d; --chipink:#c9c9e6; --good:#5fd6a0; --goodbg:#12331f;
+      --shadow:0 12px 40px rgba(0,0,0,.45);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0e0e1c; --card:#17172c; --ink:#f0f0f7; --muted:#a3a3c0;
+    --line:#2a2a45; --accent:#ff6b6b; --navy:#e9e9f6; --navy2:#c9c9e6;
+    --chip:#22223d; --chipink:#c9c9e6; --good:#5fd6a0; --goodbg:#12331f;
+    --shadow:0 12px 40px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 90px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px;color:var(--navy)}
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+  .brand small{display:block;font-weight:600;color:var(--muted);font-size:12px;letter-spacing:.3px}
+  .count{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:700;font-size:13px}
+  .track{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:24px}
+  .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#ff8a5b);transition:width .35s ease}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:30px 30px 26px;min-height:360px;display:flex;flex-direction:column}
+  .chip{align-self:flex-start;background:var(--chip);color:var(--chipink);font-size:11.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;padding:6px 12px;border-radius:99px;margin-bottom:18px}
+  .q{font-size:23px;line-height:1.35;font-weight:750;color:var(--ink);margin:0 0 6px}
+  .prompt{color:var(--muted);font-size:14px;margin-top:14px;font-style:italic}
+  .reveal{margin-top:22px;border-top:1px dashed var(--line);padding-top:22px;animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .lbl{font-size:11.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .why{background:color-mix(in srgb,var(--accent) 8%,transparent);border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);border-radius:14px;padding:14px 16px;margin-bottom:20px;font-size:15px;color:var(--ink)}
+  .ans{font-size:15.5px;color:var(--ink)}
+  .ans p{margin:0 0 12px}
+  .ans b{color:var(--navy)}
+  .spacer{flex:1}
+  .bar{display:flex;align-items:center;gap:10px;margin-top:24px}
+  button{font:inherit;cursor:pointer;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:12px 18px;font-weight:700;transition:transform .06s ease,background .15s ease,border-color .15s}
+  button:hover{border-color:var(--navy2)}
+  button:active{transform:translateY(1px)}
+  button:disabled{opacity:.4;cursor:default}
+  .primary{background:var(--accent);border-color:var(--accent);color:#fff;flex:1}
+  .primary:hover{background:#ff4747;border-color:#ff4747}
+  .ghost{min-width:52px;text-align:center}
+  .hint{text-align:center;color:var(--muted);font-size:12.5px;margin-top:16px}
+  .kbd{background:var(--chip);color:var(--chipink);border-radius:6px;padding:1px 7px;font-weight:700;font-size:12px}
+  .done{text-align:center;padding:20px 0}
+  .done h2{color:var(--navy);margin:6px 0}
+  a.reset{color:var(--accent);font-weight:700;text-decoration:none;cursor:pointer}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="dot"></span> roamwell showcase trainer
+      <small>Omio . Senior AI Product Manager, Post Purchase</small>
+    </div>
+    <div class="count" id="count"></div>
+  </header>
+
+  <div class="track"><div class="fill" id="fill"></div></div>
+
+  <div class="card" id="card">
+    <div class="chip" id="chip"></div>
+    <h1 class="q" id="q"></h1>
+    <div class="prompt" id="prompt">Answer it out loud first, the way you would in the room. Then reveal.</div>
+
+    <div id="reveal" hidden>
+      <div class="reveal">
+        <div class="lbl">Why they ask this</div>
+        <div class="why" id="why"></div>
+        <div class="lbl">Model answer, grounded in your prototype</div>
+        <div class="ans" id="ans"></div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="bar">
+      <button class="ghost" id="prev" aria-label="previous">Back</button>
+      <button class="primary" id="main">Reveal model answer</button>
+      <button class="ghost" id="next" aria-label="next">Next</button>
+    </div>
+  </div>
+
+  <div class="hint"><span class="kbd">Space</span> reveal . <span class="kbd">&larr;</span> <span class="kbd">&rarr;</span> move between questions</div>
+</div>
+
+<script>
+const Q = [
+ {cat:"Framing",
+  q:"Why did you build roamwell as a proactive experience and not a support chatbot? Almost every post purchase AI starts as a bot.",
+  why:"They want to see whether you designed from the traveller's real situation or copied the default pattern. A wrong answer here signals a feature builder, not a product thinker.",
+  a:["<b>The context already exists.</b> Once someone has booked, we know the booking, the legs, the ticket, and the live schedule. A chatbot throws that away and asks an anxious traveller to work out the right question at the worst possible moment.",
+     "roamwell instead detects what is happening and tells them, then prepares the resolution. The flow moves Monitoring to AtRisk to MissedConfirmed on its own, so we act on the delay before the customer even opens the app.",
+     "The chat box is the fallback for the long tail, not the front door. Proactive is the product. Reactive is the safety net."]},
+
+ {cat:"Focus",
+  q:"You have thirteen scenarios but only went deep on one, the missed connection. Defend that to a Principal PM who wants to see focus.",
+  why:"Breadth without depth looks like a demo. Depth without breadth looks narrow. They are testing whether you sequenced deliberately or ran out of time.",
+  a:["<b>Breadth first to prove the pattern generalises.</b> All thirteen share one alert model, one trip status model, one timeline, one action model. That is what makes it a companion, not a folder of alerts.",
+     "<b>Depth on missed connection because it is the hardest case.</b> Highest anxiety, most ambiguous evidence, real money at stake, and the case where the AI is most likely to be confidently wrong. It is the one that most needs a state machine, grounding, and escalation.",
+     "Getting the hardest case right de risks the other twelve. They are scaffolded and honestly simulated, not faked as finished."]},
+
+ {cat:"Discovery",
+  q:"How do you know a missed connection is a top traveller problem, and not just the one you found interesting to build?",
+  why:"This is the trap. They want evidence of a real user need, and they want to catch you inventing importance. Owning what you do not yet know scores higher than bluffing.",
+  a:["<b>Honest answer: in the prototype I grounded it in Deutsche Bahn passenger rights and the structure of through tickets, not in Omio's own data, which I do not have yet.</b>",
+     "In the role my first move is Omio's post purchase contact drivers: what share of contacts are disruption, connection, and refund, what those cost in handle time and refunds, and CSAT after a disruption. I size the problem before committing engineering.",
+     "I built the prototype to be the argument for the shape of the solution. The company data is what turns it into a prioritised bet."]},
+
+ {cat:"AI behaviour",
+  q:"Your state machine keeps AtRisk and MissedConfirmed as separate states. Why not collapse them into one? What breaks if you do?",
+  why:"A design detail that reveals whether you understand the trust cost of a confident wrong answer. Collapsing them is the tempting simplification.",
+  a:["<b>A delay is not proof of a miss.</b> If you collapse the states, the product tells someone their connection is gone while the timetable could still recover. That destroys trust and can trigger a rebooking they never needed.",
+     "Separated, AtRisk means explain and monitor with no rebooking language. MissedConfirmed only fires when verified timetable and transfer data make the onward service actually unreachable, and only then do rights and alternative checks begin.",
+     "The boundary between those two states is the trust boundary of the whole product."]},
+
+ {cat:"Autonomy",
+  q:"What does roamwell do on its own without asking, and where does it stop and wait for the traveller? Why draw the line there?",
+  why:"The JD explicitly asks you to define boundaries, escalation, and human involvement. They want a principle, not a case by case list.",
+  a:["<b>It acts alone on reversible analysis:</b> monitor the journey, detect risk or a confirmed miss, check ticket rules, retrieve evidence, search and rank alternatives, and prepare a recommendation.",
+     "<b>It waits for the traveller before anything irreversible or trust sensitive:</b> replacing the plan they are following, stopping monitoring the original, making any reservation, purchase, cancellation or refund, or sharing their data with support or a carrier.",
+     "The line is reversibility and consequence. Analysis is safe to automate. Commitment is not."]},
+
+ {cat:"Trust",
+  q:"Show me the exact moment your product could lie to a customer, and what stops it.",
+  why:"A sharp probe. They want to see that you have named your own worst failure mode and turned the guardrail into something testable.",
+  a:["<b>The failure mode is calling a suggested option rebooked or protected when no carrier booking happened.</b>",
+     "The rule is explicit and testable: an option the traveller has not accepted is <b>suggested</b>, never updated, protected, reserved, or rebooked. We only say we rebooked you if a real carrier booking operation occurred. Otherwise the language is we found a valid alternative and your original ticket remains valid.",
+     "It is written as an acceptance criterion, so evaluation and QA can fail a build on it. A trust rule that cannot be tested is just a hope."]},
+
+ {cat:"Grounding",
+  q:"This is an LLM product touching money and passenger rights. How do you stop it inventing a policy or a number?",
+  why:"They need to know you understand where the model must not be trusted, and that you built the separation into the system rather than the prompt.",
+  a:["<b>The grounding contract.</b> Every output type has a rule. A fact carries the provider response plus a retrieval timestamp. A calculation exposes named inputs and a deterministic formula, so the transfer margin math is not the model's job.",
+     "A policy claim references a versioned rule id and source. My policy manifest pins each claim to a Deutsche Bahn source URL, a local evidence PDF, and a review status. A recommendation must state its assumptions, the alternatives considered, and a confidence.",
+     "The model composes the explanation. It does not author the facts, the numbers, or the rules. Those are retrieved from versioned, dated, reviewed sources."]},
+
+ {cat:"Failure",
+  q:"What happens when the data is missing, stale, or contradictory? Most demos quietly skip this.",
+  why:"Handling the unhappy path is what separates a product from a showcase. They will look for a defined behaviour, not a shrug.",
+  a:["<b>NeedsReview is a first class state, not an afterthought.</b> Unknown values stay unknown. They never silently become false, zero, or eligible.",
+     "Missing, stale, or conflicting evidence stops automation and hands off to a human with the retained context and open questions. The customer sees an honest uncertainty message rather than a confident guess.",
+     "It is in the acceptance criteria: missing or conflicting evidence must have a defined escalation state. Safe to be unsure is a feature."]},
+
+ {cat:"Evaluation",
+  q:"How would you evaluate roamwell before launch? Be specific, not we would test it.",
+  why:"The JD dedicates a whole section to quality and evaluation. A Principal PM wants a concrete method, ideally two layers of scoring.",
+  a:["<b>A golden set of representative post purchase cases with known correct outcomes:</b> miss versus no miss, ticket covered versus not, reservation required alternatives correctly excluded, compensation eligible versus not, and ambiguous cases that should escalate.",
+     "<b>Score two layers.</b> First, task correctness: did it reach the right state and recommendation. Second, trust compliance: no false rebooked, no compensation promised before the qualifying delay, unknowns preserved.",
+     "Production data and expert review for the policy calls. The launch threshold is set on that golden set before we ship, alongside latency and cost budgets."]},
+
+ {cat:"Reliability",
+  q:"The JD says test whether the AI can perform the task reliably, not just whether people like it. Where is roamwell most likely to fail that reliability bar?",
+  why:"They want you to name your own weakest dependency, and show the reliability question is about inputs, not phrasing.",
+  a:["<b>The hard dependency is live timetable and transfer data quality.</b> The transfer margin is only as good as predicted arrival, onward departure, the station transfer requirement, and the minimum transfer time.",
+     "Stale or wrong live data produces a confident wrong verdict. That is why live changes are cached for thirty seconds, every result is timestamped, and live data is never presented as proof of a simulated delay.",
+     "So the reliability question is not can the model talk, it is can we trust the inputs. Monitoring and the golden set watch input freshness and decision accuracy, not the wording."]},
+
+ {cat:"Data science",
+  q:"Where does data science actually come into roamwell? Point to specific places, not we use machine learning.",
+  why:"The JD names Data Science as a partner from early exploration through production. They want to see you can hand them a crisp target, not a vague hope.",
+  a:["<b>The predicted arrival time is a model output.</b> The whole missed connection decision starts with the question will this train arrive late enough to break the transfer. Forecasting that destination and connection delay from live and historical data is a data science problem, not a rule.",
+     "<b>The AtRisk safety buffer is a calibration.</b> I deliberately left that threshold to be set from data: at what predicted margin does a connection actually get missed, and at what false alarm cost. Data science finds that curve. I decide where on it we sit.",
+     "<b>Ranking, confidence, and measurement.</b> Which alternatives travellers accept, how alternatives are ranked, and the confidence level at which we act rather than escalate all improve from production data. The golden set, false miss rate, and drift monitoring are data science owned measurement."]},
+
+ {cat:"Working model",
+  q:"How do you work with data science on this, from early exploration to production? What do you own and what do they own?",
+  why:"They want the operating model, not a friendly we collaborate. The strong answer shows you turn a fuzzy goal into a measurable target and hold the product boundary.",
+  a:["<b>I bring them in during exploration, not with a finished spec.</b> My job is to turn help disrupted travellers into something they can model: predict destination delay, predict connection reachability, with a defined input set. The state machine is the shared contract that tells them exactly what to predict and when.",
+     "<b>They own the model, I own the boundary.</b> They build and measure the forecast and the ranking. I decide what accuracy is good enough to act autonomously versus explain and escalate, and I hold that against customer trust, not just a metric.",
+     "<b>We set the launch threshold together on the golden set</b> and watch drift together in production. When behaviour degrades, that is a shared trigger: they diagnose the model, I decide whether the product pulls back to explain and monitor while it is fixed."]},
+
+ {cat:"Trade offs",
+  q:"Walk me through one real trade off you made across usefulness, accuracy, latency, cost, and trust.",
+  why:"The JD lists those exact axes. They want a decision you actually made and can defend both ways, not a textbook answer.",
+  a:["<b>The safety buffer for AtRisk.</b> A tight buffer catches more real misses, which is useful, but raises false alarms that erode trust and cause needless rebooking. A loose buffer is trustworthy but warns too late.",
+     "I deliberately left the exact value as a later decision to be set from data rather than guessed, because guessing it is exactly the confident wrong number this product must avoid.",
+     "Second trade off: I compute the margin deterministically instead of letting the model reason it. I gave up a little flexibility to buy accuracy and testability on the number that drives the money decision."]},
+
+ {cat:"Domain depth",
+  q:"A traveller is delayed. Are they owed money? How does your product answer without over promising?",
+  why:"Refund, alternative cost, and compensation get conflated constantly. They want to see you keep three different money questions apart.",
+  a:["<b>Three separate money questions, kept visibly distinct.</b> Do I pay for the alternative: no additional payment for a covered, non reservation service. Is my original ticket refunded: no, they are continuing on it.",
+     "Could I get compensation: possibly. It is a separate passenger rights outcome based on the final actual delay at the ticketed destination. Per my policy manifest, twenty five percent from sixty minutes and fifty percent from one hundred twenty minutes, subject to conditions.",
+     "So the product says we will check compensation after you arrive, never you are owed money now. Nothing is promised before the qualifying delay is established."]},
+
+ {cat:"Coherence",
+  q:"The JD warns against shipping isolated features. How is roamwell one experience and not thirteen separate features?",
+  why:"They want proof of an underlying system, not a switch statement per scenario.",
+  a:["<b>One model sits under all thirteen scenarios.</b> A shared alert, trip status, timeline, and action model.",
+     "Whether it is a platform change, a delay, a missed connection, or a refund in progress, the traveller sees the same structure: what happened, what it means for you, what you can do, and what needs no action from you.",
+     "The state machine and grounding contract are shared infrastructure, not per scenario code. That is what makes it a post purchase companion instead of a pile of alerts wearing one skin."]},
+
+ {cat:"AI native",
+  q:"This role expects AI native product practice. How did you actually use AI to build this, and where did you refuse to trust it?",
+  why:"They live this daily. They want honesty about both the acceleration and the verification, because that judgment is the job.",
+  a:["<b>I used AI to move fast:</b> drafting the state machine, structuring the grounding contract, generating the scenario coverage, and prototyping the interface.",
+     "<b>Where I did not trust it: the policy claims and the numbers.</b> Those I pinned to Deutsche Bahn source URLs and local evidence with a review status, and I made the transfer margin a deterministic formula rather than model reasoning.",
+     "That is the same discipline the product itself needs. Use AI for range and speed, and verify anything that touches money, rights, or a booking change."]},
+
+ {cat:"Scale",
+  q:"roamwell is Deutsche Bahn and one country. Omio is over a thousand providers across forty six countries. What breaks, and what survives?",
+  why:"They want to know whether your architecture is a demo or a foundation, and whether you would roll out responsibly.",
+  a:["<b>What survives is the architecture:</b> the state machine, the grounding contract, the suggested not rebooked rule, the escalation states, and golden set evaluation.",
+     "<b>What breaks is grounding coverage.</b> Every operator has different rights rules, ticket bindings, reservation requirements, and data quality. The policy manifest becomes a large versioned, owned, monitored rule base per operator and country, with legal review.",
+     "So the readiness criterion is: turn on autonomous rights claims only where policy is verified and current and live data is reliable. Everywhere else it stays explain and escalate. Coverage rolls out by confidence, not switched on everywhere at once."]},
+
+ {cat:"Judgment",
+  q:"You will rarely have complete evidence. Give me a decision you would make on roamwell right now with incomplete data.",
+  why:"The JD asks for strong judgment when evidence is incomplete. They want you to commit, not hedge.",
+  a:["<b>I would ship the explain and monitor half of missed connection before the autonomous rights claim.</b>",
+     "Detecting risk, explaining what is happening, and surfacing verified alternatives is high value and low risk even without perfect policy coverage. The rights claim and any money statement wait behind verified grounding.",
+     "That sequences value early while keeping the dangerous part behind the evidence bar. It matches the JD's own instruction to launch incrementally and improve from real usage."]},
+
+ {cat:"Metric",
+  q:"What is the one metric you would hold yourself to on this product?",
+  why:"The closing question. They want a metric that cannot be gamed by deflecting to a wrong answer.",
+  a:["<b>Resolved without a human and without an error.</b> The share of disruption cases where the traveller reached a valid, correct next step with no support contact and no trust violation.",
+     "It couples autonomy with correctness, so you cannot win it by confidently sending someone the wrong way or by dumping everything on support.",
+     "Paired guardrails underneath it: false miss rate, incorrect money statements, and escalation precision. Those stop the headline number from hiding a quiet harm."]}
+];
+
+let i = 0, shown = false;
+const el = id => document.getElementById(id);
+function render(){
+  const item = Q[i];
+  el('chip').textContent = item.cat;
+  el('q').textContent = item.q;
+  el('why').textContent = item.why;
+  el('ans').innerHTML = item.a.map(p=>'<p>'+p+'</p>').join('');
+  el('count').textContent = (i+1)+' / '+Q.length;
+  el('fill').style.width = ((i)/(Q.length-1)*100)+'%';
+  el('reveal').hidden = !shown;
+  el('prompt').style.display = shown ? 'none' : 'block';
+  el('main').textContent = shown ? (i===Q.length-1 ? 'Finish' : 'Next question') : 'Reveal model answer';
+  el('prev').disabled = i===0;
+  el('next').disabled = i===Q.length-1;
+  el('card').scrollIntoView({block:'nearest'});
+}
+function reveal(){ shown = true; render(); }
+function go(n){ i = Math.max(0, Math.min(Q.length-1, n)); shown = false; render(); }
+el('main').onclick = ()=>{ if(!shown){ reveal(); } else if(i===Q.length-1){ finish(); } else { go(i+1); } };
+el('next').onclick = ()=>go(i+1);
+el('prev').onclick = ()=>go(i-1);
+function finish(){
+  el('card').innerHTML = '<div class="done"><div class="chip" style="align-self:center">Nineteen down</div>'+
+    '<h2>That is the full showcase set.</h2>'+
+    '<p style="color:var(--muted)">Run it again until every answer is yours, not read. The three that decide the room are the trust one, the failure state one, and the metric.</p>'+
+    '<p style="margin-top:18px"><a class="reset" onclick="location.reload()">Start over</a></p></div>';
+  el('fill').style.width='100%'; el('count').textContent=Q.length+' / '+Q.length;
+}
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'){ e.preventDefault(); if(!shown) reveal(); else if(i<Q.length-1) go(i+1); else finish(); }
+  else if(e.key==='ArrowRight'){ if(i<Q.length-1) go(i+1); }
+  else if(e.key==='ArrowLeft'){ if(i>0) go(i-1); }
+});
+render();
+</script>
